@@ -87,7 +87,6 @@ if (count($_POST) > 0) {
                 $stmt->bindParam(':foto', $foto);
                 $stmt->bindParam(':telefone', $telefone);
                 $stmt->bindParam(':celular', $celular);
-
                 
                 $deu_certo = $stmt->execute();
                 
@@ -105,111 +104,103 @@ if (count($_POST) > 0) {
 
 ?>
 
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de clientes</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-home.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/style.css">--> <!-- Se necessário, mantenha seu estilo customizado aqui -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>
 <body>
-    <main>
+    <main class="container mt-5">
         <section class="principal">
-            <a href="clientes.php">Voltar para a lista</a>
-                <form method="POST" enctype="multipart/form-data" action="">
-                    <p>
-                        <label class="lblPrinc">Categoria</label><br>
-                        <select name="cod_categoria" class="input-padrao">
-                        <option value="">Selecione uma categoria</option>
-                        <?php
-                            //buscar as categorias
-                            $sql_categorias = "SELECT * FROM categorias";
-                            $stmt_categorias = $pdo->prepare($sql_categorias);
-                            $stmt_categorias->execute();
-
-                            //preenche o select box com os nomes das categorias
-                            while ($categoria = $stmt_categorias->fetch(PDO::FETCH_ASSOC)) {
-                                echo "<option value='" . $categoria['cod_categoria'] . "'>" . $categoria['nome'] . "</option>";
-                            }
-                        ?>
-                        </select>
-                    </p>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Nome</label><br>
-                        <input value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">RG</label><br>
-                        <input value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*CPF</label><br>
-                        <input value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*E-mail</label><br>
-                        <input value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Endereço</label><br>
-                        <input value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Cidade</label><br>
-                        <input value="<?php if(isset($_POST['cidade'])) echo $_POST['cidade']; ?>" name="cidade" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Estado</label><br>
-                        <input value="<?php if(isset($_POST['estado'])) echo $_POST['estado']; ?>" name="estado" id="estado" class="input-padrao" type="text" maxlength="2" oninput="formatarEstado(this)">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Data de nascimento</label><br>
-                        <input value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Telefone</label><br>
-                        <input value="<?php if(isset($_POST['telefone'])) echo $_POST['telefone']; ?>" name="telefone" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Celular</label><br>
-                        <input value="<?php if(isset($_POST['celular'])) echo $_POST['celular']; ?>" name="celular" class="input-padrao" type="text">
-                    <br>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Foto</label><br>
-                        <input value="<?php if(isset($_FILES['foto'])) echo $_FILES['foto']; ?>" name="foto" class="input-padrao" type="file">
-                    <br>
-                    <br>
-                    <br><br>
-                    <p>
-                        <button name="salvar_cliente" class="enviar" type="submit">Salvar cliente</button>
-                    </p>
-                </form>
+            <div class="form-group" d-flex justify-content-between>
+                <a href="index.php" class="btn btn-primary">Voltar para a lista</a>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <form method="POST" enctype="multipart/form-data" action="">
+                            <div class="form-group">
+                                <label for="cod_categoria">Categoria</label>
+                                <select name="cod_categoria" class="form-control">
+                                    <!-- ... (opções do select) ... -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">*Nome</label>
+                                <input value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="rg">RG</label>
+                                <input value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf">*CPF</label>
+                                <input value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">*E-mail</label>
+                                <input value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="endereco">*Endereço</label>
+                                <input value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="cidade">*Cidade</label>
+                                <input value="<?php if(isset($_POST['cidade'])) echo $_POST['cidade']; ?>" name="cidade" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="estado">*Estado</label>
+                                <input value="<?php if(isset($_POST['estado'])) echo $_POST['estado']; ?>" name="estado" id="estado" class="form-control" type="text" maxlength="2" oninput="formatarEstado(this)">
+                            </div>
+                            <div class="form-group">
+                                <label for="nascimento">Data de nascimento</label>
+                                <input value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone">Telefone</label>
+                                <input value="<?php if(isset($_POST['telefone'])) echo $_POST['telefone']; ?>" name="telefone" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="celular">*Celular</label>
+                                <input value="<?php if(isset($_POST['celular'])) echo $_POST['celular']; ?>" name="celular" class="form-control" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="foto">Foto</label>
+                                <input name="foto" class="form-control-file" type="file">
+                            </div>
+                            <div class="form-group">
+                                <button name="salvar_cliente" class="btn btn-primary" type="submit">Salvar cliente</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <script>
         $(document).ready(function() {
-        // Máscara para RG
-        $("input[name='rg']").inputmask("99.999.999-9");
-        
-        // Máscara para CPF
-        $("input[name='cpf']").inputmask("999.999.999-99");
+            // Máscara para RG
+            $("input[name='rg']").inputmask("99.999.999-9");
+            
+            // Máscara para CPF
+            $("input[name='cpf']").inputmask("999.999.999-99");
 
-        // Máscara para Data de Nascimento
-        $("input[name='nascimento']").inputmask("99/99/9999");
+            // Máscara para Data de Nascimento
+            $("input[name='nascimento']").inputmask("99/99/9999");
 
-        // Máscara para Telefone e Celular
-        $("input[name='telefone'], input[name='celular']").inputmask("(99) 9999-9999[9]");
+            // Máscara para Telefone e Celular
+            $("input[name='telefone'], input[name='celular']").inputmask("(99) 9999-9999[9]");
         });
+
         function formatarEstado(input) {
             input.value = input.value.replace(/[^A-Za-z]/g, '').toUpperCase();
         }

@@ -138,99 +138,87 @@ try {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edição de clientes</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-home.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
-<body>   
-<main>
-<section class="principal">
-            <a href="clientes.php">Voltar para a lista</a>
-                <form method="POST" enctype="multipart/form-data" action="">
-                    <p>
-                    <label class="lblPrinc">Categoria</label><br>
-                        <select name="cod_categoria" class="input-padrao">
-                            <option value="">Selecione uma categoria</option>
-                            <?php
-                                // Buscar categorias do banco de dados
-                                $sql_categorias = "SELECT * FROM categorias";
-                                $stmt_categorias = $pdo->prepare($sql_categorias);
-                                $stmt_categorias->execute();
+<body>
+    <main class="container mt-5">
+        <a href="index.php" class="btn btn-primary">Voltar para a lista</a>
+        <form method="POST" enctype="multipart/form-data" action="" class="mt-4">
+            <div class="form-group">
+                <label for="cod_categoria">Categoria</label>
+                <select id="cod_categoria" name="cod_categoria" class="form-control">
+                    <option value="">Selecione uma categoria</option>
+                    <?php
+                    // Buscar categorias do banco de dados
+                    $sql_categorias = "SELECT * FROM categorias";
+                    $stmt_categorias = $pdo->prepare($sql_categorias);
+                    $stmt_categorias->execute();
 
-                                // Percorrer as categorias e preencher a caixa de seleção
-                                while ($categoria = $stmt_categorias->fetch(PDO::FETCH_ASSOC)) {
-                                    $selected = ($categoria['cod_categoria'] == $cliente['cod_categoria']) ? 'selected' : '';
-                                    echo "<option value='" . $categoria['cod_categoria'] . "' $selected>" . $categoria['nome'] . "</option>";
-                                }
-                            ?>
-                        </select>
-                    </p>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Nome</label><br>
-                        <input value="<?php echo $cliente['nome']; ?>" name="nome" class="input-padrao" type="text">
-                    <br>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">RG</label><br>
-                        <input value="<?php echo $cliente['rg']; ?>" name="rg" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*CPF</label><br>
-                        <input value="<?php echo $cliente['cpf']; ?>" name="cpf" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*E-mail</label><br>
-                        <input value="<?php echo $cliente['email']; ?>" name="email" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Endereço</label><br>
-                        <input value="<?php echo $cliente['endereco']; ?>" name="endereco" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Cidade</label><br>
-                        <input value="<?php echo $cliente['cidade']; ?>" name="cidade" class="input-padrao" type="text">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">*Estado</label><br>
-                        <input value="<?php echo $cliente['estado']; ?>" name="estado" class="input-padrao" type="text" maxlength="2" oninput="formatarEstado(this)">
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Data de nascimento</label><br>
-                        <input value="<?php echo ($cliente['nascimento'] !== '0000-00-00') ? converterDataParaFormatoExibicao($cliente['nascimento']) : ''; ?>" name="nascimento" class="input-padrao" type="text" id="dataNascimento">
-                    </p>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Telefone</label><br>
-                        <input value="<?php echo $cliente['telefone']; ?>" name="telefone" class="input-padrao" type="text">
-                    <br>
-                    </p>
-                    <p>
-                        <label class="lblPrinc">*Celular</label><br>
-                        <input value="<?php echo $cliente['celular']; ?>" name="celular" class="input-padrao" type="text">
-                    <br>
-                    <br>
-                    <p>
-                        <label class="lblPrinc">Foto</label><br>
-                        <input value="<?php if(isset($_FILES['foto'])) echo $_FILES['foto']; ?>" name="foto" class="input-padrao" type="file">
-                    <br>
-                    <br>
-                    <br><br>
-                    <p>
-                        <button name="atualizar_cliente" class="enviar" type="submit">Atualizar cliente</button>
-                    </p>
-                </form>
-        </section>
-</main>
-<script>
+                    // Percorrer as categorias e preencher a caixa de seleção
+                    while ($categoria = $stmt_categorias->fetch(PDO::FETCH_ASSOC)) {
+                        $selected = ($categoria['cod_categoria'] == $cliente['cod_categoria']) ? 'selected' : '';
+                        echo "<option value='" . $categoria['cod_categoria'] . "' $selected>" . $categoria['nome'] . "</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nome">*Nome</label>
+                <input value="<?php echo $cliente['nome']; ?>" name="nome" id="nome" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="rg">RG</label>
+                <input value="<?php echo $cliente['rg']; ?>" name="rg" id="rg" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="cpf">*CPF</label>
+                <input value="<?php echo $cliente['cpf']; ?>" name="cpf" id="cpf" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="email">*E-mail</label>
+                <input value="<?php echo $cliente['email']; ?>" name="email" id="email" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="endereco">*Endereço</label>
+                <input value="<?php echo $cliente['endereco']; ?>" name="endereco" id="endereco" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="cidade">*Cidade</label>
+                <input value="<?php echo $cliente['cidade']; ?>" name="cidade" id="cidade" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="estado">*Estado</label>
+                <input value="<?php echo $cliente['estado']; ?>" name="estado" id="estado" class="form-control" type="text" maxlength="2">
+            </div>
+            <div class="form-group">
+                <label for="nascimento">Data de nascimento</label>
+                <input value="<?php echo ($cliente['nascimento'] !== '0000-00-00') ? converterDataParaFormatoExibicao($cliente['nascimento']) : ''; ?>" name="nascimento" id="nascimento" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input value="<?php echo $cliente['telefone']; ?>" name="telefone" id="telefone" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="celular">*Celular</label>
+                <input value="<?php echo $cliente['celular']; ?>" name="celular" id="celular" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto</label>
+                <input name="foto" id="foto" class="form-control-file" type="file">
+            </div>
+            <button name="atualizar_cliente" class="btn btn-primary" type="submit">Atualizar cliente</button>
+        </form>
+    </main>
+    <script>
     $(document).ready(function() {
         // Máscara para RG
         $("input[name='rg']").inputmask("99.999.999-9");
@@ -264,5 +252,10 @@ try {
     }
 
 </script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

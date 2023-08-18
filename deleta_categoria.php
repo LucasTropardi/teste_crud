@@ -10,8 +10,10 @@ if(isset($_POST['confirmar'])) {
         $deu_certo = $stmt->execute();
 
         if ($deu_certo) { ?>
-            <h1>Categoria deletada com sucesso.</h1>
-            <p><a href="categorias.php">Clique aqui</a> para voltar à lista de categorias</p>
+            <div class="container mt-5">
+                <h1>Categoria deletada com sucesso.</h1>
+                <p><a href="categorias.php" class="btn btn-primary">Clique aqui</a> para voltar à lista de categorias</p>
+            </div>
         <?php    
             die();
         } 
@@ -21,28 +23,30 @@ if(isset($_POST['confirmar'])) {
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
+
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Deletar categoria</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-home.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-
 <body>
-<main>
-    <section class="principal">
-        <h1>Tem certeza que deseja deletar esta categoria?</h1>
-        <form action="" method="POST">
-            <a style="margin-right: 10px;" href="categorias.php"><b>Não</b></a>
-            <button name="confirmar" value="1" type="submit"><b>Sim</b></button>
-        </form>
-        
-    </section>
-</main>
+    <main>
+        <section class="container mt-5">
+            <h1>Tem certeza que deseja deletar esta categoria?</h1>
+            <form action="" method="POST">
+                <a href="categorias.php" class="btn btn-secondary">Não</a>
+                <button name="confirmar" value="1" class="btn btn-danger" type="submit">Sim</button>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Optional: jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

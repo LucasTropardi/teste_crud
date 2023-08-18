@@ -2,7 +2,6 @@
 include('conexao.php');
 $cod_categoria = intval($_GET['cod_categoria']);
 
-
 if (count($_POST) > 0) {
     $erro = false;
     $nome = $_POST['nome'];
@@ -48,36 +47,36 @@ try {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Edição de categorias</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-home.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Editar categoria</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-
 <body>
-<main>
-    <section class="principal">
-        <a href="categorias.php">Voltar para a lista</a>
-        <form method="POST" action="">
-            <p>
-                <label class="lblPrinc">Nome</label>
-                <input value="<?php echo $categoria['nome']; ?>" name="nome" class="input-padrao" type="text">
-            </p>
-            <p>
-                <label class="lblPrinc">Descrição</label>
-                <textarea name="descricao" class="input-padrao" type="text"><?php echo $categoria['descricao']; ?></textarea>
-            </p>
-            <p>
-                <button name="atualizar_categoria" class="enviar" type="submit">Atualizar categoria</button>
-            </p>
-        </form>
-    </section>
-</main>
+    <main>
+        <section class="container mt-5">
+            <a href="categorias.php" class="btn btn-primary mb-3">Voltar para a lista</a>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input value="<?php echo $categoria['nome']; ?>" name="nome" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea name="descricao" class="form-control"><?php echo $categoria['descricao']; ?></textarea>
+                </div>
+                <button name="atualizar_categoria" class="btn btn-primary" type="submit">Atualizar categoria</button>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Optional: jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

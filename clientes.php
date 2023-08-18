@@ -2,7 +2,10 @@
 include('conexao.php');
 
 try {
-    $sql_clientes = "SELECT clientes.*, categorias.nome AS nome_categoria FROM clientes LEFT JOIN categorias ON clientes.cod_categoria = categorias.cod_categoria";
+    $filtro_cidade = isset($_GET['cidade']) ? $_GET['cidade'] : "";
+    $filtro_sql = !empty($filtro_cidade) ? "WHERE cidade LIKE '%$filtro_cidade%'" : "";
+
+    $sql_clientes = "SELECT clientes.*, categorias.nome AS nome_categoria FROM clientes LEFT JOIN categorias ON clientes.cod_categoria = categorias.cod_categoria $filtro_sql";
     $stmt = $pdo->query($sql_clientes);
     $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $num_clientes = count($clientes);
@@ -18,7 +21,7 @@ try {
     <title>Clientes</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style-home.css">
+    <!--<link rel="stylesheet" href="css/style-home.css">-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -27,6 +30,12 @@ try {
             <h1>Lista de Clientes</h1>
             <p>Estes são os clientes cadastrados no sistema:</p>
             <a href="cadastro_clientes.php">cadastrar cliente</a>
+            <br>
+            <form method="GET">
+                <label for="cidade">Filtrar por cidade:</label>
+                <input type="text" name="cidade" value="<?php echo $filtro_cidade; ?>">
+                <button type="submit">Aplicar Filtro</button>
+            </form>
             <table border="1">
                 <thead>
                     <th>ID</th>
