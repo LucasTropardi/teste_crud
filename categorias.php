@@ -16,12 +16,16 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categorias</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-home.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
         <section class="principal">
-            <h1>Lista de categorias</h1>
-            <p>Estas são as categorias cadastradas no sistema:</p>
+            <h1 class="uper">Lista de categorias</h1><br>
+            <p>Estas são as categorias cadastradas no sistema:</p><br>
             <table border="1">
                 <thead>
                     <th>ID</th>
@@ -35,7 +39,7 @@ try {
                         <tr>
                             <td colspan="4">Nenhuma categoria cadastrada</td>
                         </tr>
-                    <?php } else { 
+                        <?php } else { 
                         foreach ($categorias as $categoria) {
                         ?>    
                         <tr>

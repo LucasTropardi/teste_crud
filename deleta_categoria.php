@@ -27,10 +27,9 @@ if(isset($_POST['confirmar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Deletar categoria</title>
-
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style-home.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-home.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 

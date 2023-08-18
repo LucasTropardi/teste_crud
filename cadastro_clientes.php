@@ -67,10 +67,8 @@ if (count($_POST) > 0) {
             $foto = $path; // Atribuir o caminho da foto à variável $foto
         }
     }
-
-
-    
-
+        //echo "<script>console.log($cpf)</script>";
+        //usei o console para verificar o motivo do bug de não salvar os dois digitos verificadores do cpf
         try {            
             
             if (!$erro) {
@@ -115,6 +113,10 @@ if (count($_POST) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de clientes</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-home.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 </head>

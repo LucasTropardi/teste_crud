@@ -16,12 +16,17 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-home.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
         <section class="principal">
             <h1>Lista de Clientes</h1>
             <p>Estes são os clientes cadastrados no sistema:</p>
+            <a href="cadastro_clientes.php">cadastrar cliente</a>
             <table border="1">
                 <thead>
                     <th>ID</th>

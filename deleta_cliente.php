@@ -27,9 +27,10 @@ if (isset($_POST['confirmar'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Exclusão de Cliente</title>
-
-    <!-- Seus estilos e scripts aqui -->
-
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-home.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
 <main>

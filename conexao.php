@@ -11,7 +11,7 @@ try {
 } catch (PDOException $e) {
     die("Conexão com a base de dados não estabelecida, verifique.");
 }
-
+//tive problemas com esta função, remover do código ou trabalhar nela.
 function limpar_texto($str) {
     return preg_replace("/[^0-9]/", "", $str);
 }
