@@ -1,8 +1,5 @@
 <?php
 
-function limpar_texto($str) {
-    return preg_replace("/[^0-9]/", "", $str);
-}
 
 $erro = false; 
 
@@ -66,7 +63,7 @@ if (count($_POST) > 0) {
             <a href="categorias.php">Voltar para a lista</a>
                 <form method="POST" action="">
                     <p>
-                        <label class="lblPrinc">Nome</label><br>
+                        <label class="lblPrinc">*Nome</label><br>
                         <input value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" class="input-padrao" type="text">
                  
                     <br>

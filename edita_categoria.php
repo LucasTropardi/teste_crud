@@ -2,9 +2,6 @@
 include('conexao.php');
 $cod_categoria = intval($_GET['cod_categoria']);
 
-function limpar_texto($str) {
-    return preg_replace("/[^0-9]/", "", $str);
-}
 
 if (count($_POST) > 0) {
     $erro = false;
