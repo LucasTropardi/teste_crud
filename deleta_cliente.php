@@ -1,5 +1,5 @@
 <?php
-include('conexao.php');
+require('conexao.php');
 
 if (isset($_POST['confirmar'])) {
     $cod_cliente = intval($_GET['cod_cliente']);
@@ -11,8 +11,7 @@ if (isset($_POST['confirmar'])) {
         $deu_certo = $stmt->execute();
 
         if ($deu_certo) {
-            echo "<h1 class='mt-5'>Cliente deletado com sucesso.</h1>";
-            echo "<p><a href='clientes.php' class='btn btn-primary'>Clique aqui</a> para voltar à lista de clientes</p>";
+            header("Location: delete_cliente_voltar.php");
             die();
         }
     } catch (PDOException $e) {

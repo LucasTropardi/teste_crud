@@ -1,5 +1,5 @@
 <?php
-include('conexao.php');
+require('conexao.php');
 $cod_categoria = intval($_GET['cod_categoria']);
 
 if (count($_POST) > 0) {
@@ -27,8 +27,9 @@ if (count($_POST) > 0) {
             $deu_certo = $stmt->execute();
             
             if ($deu_certo) {
-                echo "<p><b>Categoria atualizada com sucesso.</b></p>";
                 unset($_POST);
+                header("Location: msg_categoria_atualizada.php");
+                die();
             }
         } catch (PDOException $e) {
             echo "Erro: " . $e->getMessage();
@@ -59,17 +60,18 @@ try {
 <body>
     <main>
         <section class="container mt-5">
-            <a href="categorias.php" class="btn btn-primary mb-3">Voltar para a lista</a>
+            <h1 class="display-4">Atualizar registro</h1><br><br>
             <form method="POST" action="">
                 <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input value="<?php echo $categoria['nome']; ?>" name="nome" class="form-control" type="text">
+                    <label for="nome">Nome *</label>
+                    <input value="<?php echo $categoria['nome']; ?>" name="nome" class="form-control" type="text" required>
                 </div>
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
                     <textarea name="descricao" class="form-control"><?php echo $categoria['descricao']; ?></textarea>
                 </div>
                 <button name="atualizar_categoria" class="btn btn-primary" type="submit">Atualizar categoria</button>
+                <a href="categorias.php" class="btn btn-secondary">Voltar para a lista</a>
             </form>
         </section>
     </main>

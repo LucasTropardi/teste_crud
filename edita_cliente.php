@@ -1,5 +1,5 @@
 <?php
-include('conexao.php');
+require('conexao.php');
 $cod_cliente = intval($_GET['cod_cliente']);
 $erro = false;
 
@@ -72,11 +72,11 @@ if (count($_POST) > 0) {
         if (!$passou) {
             $erro = "Falha ao enviar o arquivo.";
         }
-    }
 
-    if ($erro) {
-        echo "<p><b>Erro: $erro</b></p>";       
-    } else {
+        if ($erro) {
+            echo "<p><b>Erro: $erro</b></p>";       
+        }
+
         try {
             $sql_code = "UPDATE clientes
             SET cod_categoria = :cod_categoria,
@@ -94,7 +94,7 @@ if (count($_POST) > 0) {
             WHERE cod_cliente = :cod_cliente";   
             $stmt = $pdo->prepare($sql_code);
             $stmt->bindParam(':cod_cliente', $cod_cliente);
-            $stmt->bindParam(':cod_categoria', $cod_categoria);
+            $stmt->bindParam(':cod_categoria', $cod_categoria, PDO::PARAM_INT);
             $stmt->bindParam(':nome', $nome);
             $stmt->bindParam(':rg', $rg);
             $stmt->bindParam(':cpf', $cpf);
@@ -110,13 +110,56 @@ if (count($_POST) > 0) {
             $deu_certo = $stmt->execute();
             
             if ($deu_certo) {
-                echo "<p><b>Cliente atualizado com sucesso.</b></p>";
                 unset($_POST);
+                header("Location: msg_cliente_atualizado.php");
+                die();
             }
         } catch (PDOException $e) {
             echo "Erro: " . $e->getMessage();
         }
+        
+    } else {
+        //mantenha o valor atual da foto caso usuário não selecione nenhuma nova.
+        try {
+            $sql_code = "UPDATE clientes
+            SET cod_categoria = :cod_categoria,
+            nome = :nome,
+            rg = :rg,
+            cpf = :cpf,
+            email = :email,
+            endereco = :endereco,
+            cidade = :cidade,
+            estado = :estado,
+            nascimento = :nascimento,
+            telefone = :telefone,
+            celular = :celular
+            WHERE cod_cliente = :cod_cliente";   
+            $stmt = $pdo->prepare($sql_code);
+            $stmt->bindParam(':cod_cliente', $cod_cliente);
+            $stmt->bindParam(':cod_categoria', $cod_categoria, PDO::PARAM_INT);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':rg', $rg);
+            $stmt->bindParam(':cpf', $cpf);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':endereco', $endereco);
+            $stmt->bindParam(':cidade', $cidade);
+            $stmt->bindParam(':estado', $estado);
+            $stmt->bindParam(':nascimento', $nascimentoFormatado);
+            $stmt->bindParam(':telefone', $telefone);
+            $stmt->bindParam(':celular', $celular);
+         
+            $deu_certo = $stmt->execute();
+            
+            if ($deu_certo) {
+                unset($_POST);
+                header("Location: msg_cliente_atualizado.php");
+                die();
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+        } 
     }
+ 
 }
 
 try {
@@ -151,10 +194,11 @@ try {
 
 <body>
     <main class="container mt-5">
-        <a href="index.php" class="btn btn-primary">Voltar para a lista</a>
+        
         <form method="POST" enctype="multipart/form-data" action="" class="mt-4">
             <div class="form-group">
-                <label for="cod_categoria">Categoria</label>
+                <h1 class="mb-3">Atualizar registro</h1><br>
+                <label for="cod_categoria">Categoria *</label>
                 <select id="cod_categoria" name="cod_categoria" class="form-control">
                     <option value="">Selecione uma categoria</option>
                     <?php
@@ -172,32 +216,32 @@ try {
                 </select>
             </div>
             <div class="form-group">
-                <label for="nome">*Nome</label>
-                <input value="<?php echo $cliente['nome']; ?>" name="nome" id="nome" class="form-control" type="text">
+                <label for="nome">Nome *</label>
+                <input value="<?php echo $cliente['nome']; ?>" name="nome" id="nome" class="form-control" type="text" required>
             </div>
             <div class="form-group">
                 <label for="rg">RG</label>
                 <input value="<?php echo $cliente['rg']; ?>" name="rg" id="rg" class="form-control" type="text">
             </div>
             <div class="form-group">
-                <label for="cpf">*CPF</label>
-                <input value="<?php echo $cliente['cpf']; ?>" name="cpf" id="cpf" class="form-control" type="text">
+                <label for="cpf">CPF *</label>
+                <input value="<?php echo $cliente['cpf']; ?>" name="cpf" id="cpf" class="form-control" type="text" required>
             </div>
             <div class="form-group">
-                <label for="email">*E-mail</label>
-                <input value="<?php echo $cliente['email']; ?>" name="email" id="email" class="form-control" type="text">
+                <label for="email">E-mail *</label>
+                <input value="<?php echo $cliente['email']; ?>" name="email" id="email" class="form-control" type="text" required>
             </div>
             <div class="form-group">
-                <label for="endereco">*Endereço</label>
-                <input value="<?php echo $cliente['endereco']; ?>" name="endereco" id="endereco" class="form-control" type="text">
+                <label for="endereco">Endereço *</label>
+                <input value="<?php echo $cliente['endereco']; ?>" name="endereco" id="endereco" class="form-control" type="text" required>
             </div>
             <div class="form-group">
-                <label for="cidade">*Cidade</label>
-                <input value="<?php echo $cliente['cidade']; ?>" name="cidade" id="cidade" class="form-control" type="text">
+                <label for="cidade">Cidade *</label>
+                <input value="<?php echo $cliente['cidade']; ?>" name="cidade" id="cidade" class="form-control" type="text" required>
             </div>
             <div class="form-group">
-                <label for="estado">*Estado</label>
-                <input value="<?php echo $cliente['estado']; ?>" name="estado" id="estado" class="form-control" type="text" maxlength="2">
+                <label for="estado">Estado *</label>
+                <input value="<?php echo $cliente['estado']; ?>" name="estado" id="estado" class="form-control" type="text" maxlength="2" required>
             </div>
             <div class="form-group">
                 <label for="nascimento">Data de nascimento</label>
@@ -208,14 +252,15 @@ try {
                 <input value="<?php echo $cliente['telefone']; ?>" name="telefone" id="telefone" class="form-control" type="text">
             </div>
             <div class="form-group">
-                <label for="celular">*Celular</label>
-                <input value="<?php echo $cliente['celular']; ?>" name="celular" id="celular" class="form-control" type="text">
+                <label for="celular">Celular *</label>
+                <input value="<?php echo $cliente['celular']; ?>" name="celular" id="celular" class="form-control" type="text" required>
             </div>
             <div class="form-group">
                 <label for="foto">Foto</label>
                 <input name="foto" id="foto" class="form-control-file" type="file">
-            </div>
+            </div><br>
             <button name="atualizar_cliente" class="btn btn-primary" type="submit">Atualizar cliente</button>
+            <a href="index.php" class="btn btn-secondary">Voltar para a lista</a><br><br>
         </form>
     </main>
     <script>

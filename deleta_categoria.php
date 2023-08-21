@@ -1,5 +1,5 @@
 <?php
-include('conexao.php');
+require('conexao.php');
 if(isset($_POST['confirmar'])) {
     $cod_categoria = intval($_GET['cod_categoria']);
     
@@ -9,13 +9,9 @@ if(isset($_POST['confirmar'])) {
         $stmt->bindParam(':cod_categoria', $cod_categoria);
         $deu_certo = $stmt->execute();
 
-        if ($deu_certo) { ?>
-            <div class="container mt-5">
-                <h1>Categoria deletada com sucesso.</h1>
-                <p><a href="categorias.php" class="btn btn-primary">Clique aqui</a> para voltar à lista de categorias</p>
-            </div>
-        <?php    
-            die();
+        if ($deu_certo) {
+            header("Location: delete_categoria_voltar.php");
+            die();        
         } 
     } catch (PDOException $e) {
         echo "Erro: " . $e->getMessage();

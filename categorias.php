@@ -1,5 +1,5 @@
 <?php
-include('conexao.php');
+require('conexao.php');
 
 try {
     $sql_categorias = "SELECT * FROM categorias";
@@ -17,7 +17,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Categorias</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -26,7 +25,7 @@ try {
             <h1 class="display-4">Lista de categorias</h1>
             <p>Estas são as categorias cadastradas no sistema:</p>
 
-            <a href="cadastro_categorias.php" class="btn btn-primary mb-3">Cadastrar Categorias</a><br>
+            <a href="cadastro_categorias.php" class="btn btn-primary mb-3">Cadastrar Categorias</a>
             <a href="index.php" class="btn btn-primary mb-3">Lista de Clientes</a><br>
 
             <div class="table-responsive">
@@ -62,7 +61,6 @@ try {
             </div>
         </section>
     </main>
-    <!-- Optional: jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-aIyF0OsRd3Jz3pUCNE5w1sF5js/xl+poTzoG9+A0bsW1Ofck2" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

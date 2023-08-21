@@ -9,7 +9,7 @@ if (count($_POST) > 0) {
         $erro = "Preencha o nome.";
     } else {
         try {
-            include('conexao.php');
+            require('conexao.php');
             
             // Validar nome já cadastrado
             $sql_verificar = "SELECT COUNT(*) AS total FROM categorias WHERE nome = :nome";
@@ -33,8 +33,9 @@ if (count($_POST) > 0) {
                 $deu_certo = $stmt->execute();
                 
                 if ($deu_certo) {
-                    echo "<p><b>Categoria cadastrada com sucesso!</b></p>";
                     unset($_POST);
+                    header("Location: msg_categoria_cadastro.php");
+                    die();
                 }
             } else {
                 echo "<p><b>Erro: $erro</b></p>";       
@@ -58,18 +59,18 @@ if (count($_POST) > 0) {
 <body>
     <main>
         <section class="container mt-5">
-            <a href="categorias.php" class="btn btn-primary mb-3">Voltar para a lista</a>
-            <a href="index.php" class="btn btn-secondary mb-3">Voltar para clientes</a>
             <form method="POST" action="">
+                <h1 class="display-4">Nova categoria</h1><br><br>
                 <div class="form-group">
-                    <label for="nome">*Nome</label>
-                    <input value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" class="form-control" type="text">
+                    <label for="nome">Nome *</label>
+                    <input value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" class="form-control" type="text" required>
                 </div>
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
                     <textarea name="descricao" class="form-control"><?php if(isset($_POST['descricao'])) echo $_POST['descricao']; ?></textarea>
                 </div>
                 <button name="salvar_categoria" class="btn btn-primary" type="submit">Salvar categoria</button>
+                <a href="categorias.php" class="btn btn-secondary">Voltar para a lista</a>
             </form>
         </section>
     </main>
